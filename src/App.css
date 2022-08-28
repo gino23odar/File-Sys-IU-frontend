@@ -170,6 +170,11 @@ body{
   height: 100%;
   width: 100%;
 }
+.channel__container-dark{
+  background-color: #000;
+  height: 100%;
+  width: 100%;
+}
 
 .channel-list__container {
   display: flex;
@@ -540,6 +545,77 @@ body{
   justify-content: center;
 }
 
+.register__form-container {
+  min-height: 80vh;
+  display: flex;
+  flex-direction: row;
+}
+
+.register__form-container_fields-content_input label {
+  display: block;
+  margin-bottom: 0.45rem;
+  color: rgb(61, 79, 88);
+  font-size: 12px;
+  font-family: Arial, Helvetica, sans-serif;
+  letter-spacing: 0.7px;
+  line-height: 1.3;
+}
+
+.register__form-container_fields-content_input input {
+  display: inline-block;
+  padding: 0.55rem 0.4rem;
+  border: 1px solid rgb(184, 196, 194);
+  border-radius: 4px;
+  font-size: 14px;
+  outline: none;
+  transition: all 150ms ease-in-out 0s;
+  width: 40%;
+  background: #fff;
+}
+
+.register__form-container_fields-content_input input::placeholder {
+  color: #b1b1b1;
+  width: 100%;
+  font-weight: unset;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.register__form-container_fields-content_input input:hover {
+  border-color: #dcdddd;
+}
+
+.register__form-container_fields-content_input input:focus,
+.register__form-container_fields-content_input input:active {
+  box-shadow: 0px 0px 0px 1.5px #005fff;
+  border-color: #005fff;
+}
+.register-channel-header__container {
+  position: relative;
+  height: 62px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+  font-family: Helvetica Neue, sans-serif;
+  font-size: 40px;
+  color: #ffffff;
+  background: #080808;
+  z-index: 1;
+}
+
+.register-channel-footer__container{ 
+  display: 'flex';
+  background-color: #000;
+  width: 100%;
+  bottom: 0px;
+}
+.register__form-container_fields-content_input {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  margin: 1rem 0rem;
+}
+
 .team-channel-header__container {
   position: relative;
   height: 62px;
@@ -673,15 +749,32 @@ body{
   font-size: 20px;
   color: #ffffff;
   line-height: 16px;
-  height: auto;
+  height: 60px;
   width: auto;
   background-color: var(--primary-color);
   border-radius: 5%;
-  bottom: 4%;
+  bottom: -8%;
   left: 20px;
   z-index: 6;
 }
 
+.team-channel__registration-button__return{
+  display: flex;
+  position: relative;
+  align-items: center;
+  font-family: Helvetica Neue, sans-serif;
+  font-size: 20px;
+  color: #ffffff;
+  line-height: 16px;
+  height: 60px;
+  width: auto;
+  background-color: var(--primary-color);
+  border-radius: 5%;
+  top: 1em;
+  bottom: 20px;
+  left: 20px;
+  z-index: 6;
+}
 .tooltip {
   display: flex;
   border-bottom: 0px dotted black;

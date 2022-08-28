@@ -17,7 +17,7 @@ const ChannelContainer = ({isCreating, setIsCreating, isRegistering, setIsRegist
 
   if(isRegistering){
     return (
-      <div className='channel__container'>
+      <div className='channel__container-dark'>
         <RegisterForm setIsRegistering={setIsRegistering}/>
       </div>
     )
