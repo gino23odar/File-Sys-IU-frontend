@@ -1,11 +1,10 @@
 import React from 'react';
-import {Channel, useChatContext, MessageTeam} from 'stream-chat-react';
+import {Channel, MessageTeam} from 'stream-chat-react';
 
-import {ChannelInner, CreateChannel, RegisterForm} from './';
+import {ChannelInner, CreateChannel, RegisterForm, RegisterTable} from './';
 
-const ChannelContainer = ({isCreating, setIsCreating, isRegistering, setIsRegistering, createType}) => {
+const ChannelContainer = ({isCreating, setIsCreating, isRegistering, setIsRegistering, isVisualising, setIsVisualising, createType}) => {
   //get info on the specific channel
-  const {channel} = useChatContext();
 
    if(isCreating){
      return (
@@ -15,10 +14,18 @@ const ChannelContainer = ({isCreating, setIsCreating, isRegistering, setIsRegist
      )
   }
 
+  if(isVisualising){
+    return (
+      <div className='channel__container-dark'>
+        <RegisterTable setIsVisualising={setIsVisualising}/>
+      </div>
+    )
+  }
+
   if(isRegistering){
     return (
       <div className='channel__container-dark'>
-        <RegisterForm setIsRegistering={setIsRegistering}/>
+        <RegisterForm setIsRegistering={setIsRegistering} setIsVisualising={setIsVisualising}/>
       </div>
     )
   }

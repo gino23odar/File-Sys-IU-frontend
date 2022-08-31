@@ -1,7 +1,7 @@
 import React from 'react';
 import {Avatar, useChatContext} from 'stream-chat-react';
 
-const TeamChannelPreview = ({setActiveChannel, setIsCreating, setIsRegistering, setToggleContainer, channel, type}) => {
+const TeamChannelPreview = ({setActiveChannel, setIsCreating, setIsRegistering, setIsVisualising, setToggleContainer, channel, type}) => {
   const {channel: activeChannel, client} = useChatContext();
   
   const ChannelPreview =()=>(
@@ -34,6 +34,7 @@ const TeamChannelPreview = ({setActiveChannel, setIsCreating, setIsRegistering, 
     onClick ={()=>{
       setIsCreating(false);
       setIsRegistering(false);
+      setIsVisualising(false);
       setActiveChannel(channel);
 
       if(setToggleContainer){

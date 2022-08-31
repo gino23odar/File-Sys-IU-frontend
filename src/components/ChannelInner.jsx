@@ -33,7 +33,7 @@ const ChannelInner = ({ setIsRegistering }) => {
     <GiphyContext.Provider value={{ giphyState, setGiphyState }}>
       <div style={{ display: 'flex', width: '100%' }}>
         <Window>
-          <TeamChannelHeader setIsRegistering={setIsRegistering} />
+          <TeamChannelHeader/>
           <MessageList />
           {/* fit the button to be next to the input component */}
           <div className = 'team-channel__input-control'>
@@ -47,7 +47,7 @@ const ChannelInner = ({ setIsRegistering }) => {
   );
 };
 
-const TeamChannelHeader = ({ setIsRegistering }) => {
+const TeamChannelHeader = () => {
     const { channel, watcher_count } = useChannelStateContext();
     const { client } = useChatContext();
   
@@ -73,7 +73,7 @@ const TeamChannelHeader = ({ setIsRegistering }) => {
       return (
         <div className='team-channel-header__channel-wrapper'>
           <p className='team-channel-header__name'># {channel.data.name}</p>
-          <div className = 'tooltip'  onClick={() => setIsRegistering(true)}>
+          <div className = 'tooltip'>
             <ChannelInfo/>
               <span className = 'tooltiptext'>{channel.data.cid}</span>
           </div>

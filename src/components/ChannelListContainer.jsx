@@ -3,17 +3,17 @@ import {ChannelList, useChatContext} from 'stream-chat-react';
 import Cookies from 'universal-cookie';
 
 import {ChannelSearch, TeamChannelList, TeamChannelPreview} from './';
-import chaticon from '../assets/chaticon.png';
+import IUicon from '../assets/IU-logo.svg';
 import logouticon from '../assets/logouticon.jpg';
 
 const cookies = new Cookies();
 
 //functional component
-const SideBar = ({logout}) => (
+const SideBar = ({logout, setIsCreating, setIsRegistering, setIsVisualising}) => (
   <div className='channel-list__sidebar'>
     <div className='channel-list__sidebar__icon1'>
-      <div className='icon1__inner'>
-        <img src={chaticon} alt='Chat' width='30' />
+      <div className='icon1__inner' onClick={()=>{setIsCreating(false); setIsRegistering(false); setIsVisualising(false);}}>
+        <img src={IUicon} alt='Chat' width='auto' />
       </div>
     </div>
     <div className='channel-list__sidebar__icon2'>
@@ -38,7 +38,7 @@ const customChannelDMsFilter = (channels)=>{
   return channels.filter((channel) => channel.type === 'messaging');
 }
 
-const ChannelListContent = ({isCreating, setIsCreating, setCreateType, setIsRegistering, setToggleContainer}) => {
+const ChannelListContent = ({isCreating, setIsCreating, setCreateType, setIsRegistering, setIsVisualising, setToggleContainer}) => {
   const {client} = useChatContext();
   
   // clear the cookies to logout
@@ -72,6 +72,7 @@ const ChannelListContent = ({isCreating, setIsCreating, setCreateType, setIsRegi
               setIsCreating={setIsCreating} 
               setCreateType={setCreateType} 
               setIsRegistering={setIsRegistering} 
+              setIsVisualising={setIsVisualising}
               setToggleContainer={setToggleContainer}
             />)} 
             Preview={(previewProps)=>(
@@ -79,6 +80,7 @@ const ChannelListContent = ({isCreating, setIsCreating, setCreateType, setIsRegi
                 {...previewProps} 
                 setIsCreating={setIsCreating} 
                 setIsRegistering={setIsRegistering} 
+                setIsVisualising={setIsVisualising}
                 setToggleContainer={setToggleContainer}  
                 type='team'
               />
@@ -95,6 +97,7 @@ const ChannelListContent = ({isCreating, setIsCreating, setCreateType, setIsRegi
               setIsCreating={setIsCreating} 
               setCreateType={setCreateType} 
               setIsRegistering={setIsRegistering} 
+              setIsVisualising={setIsVisualising}
               setToggleContainer={setToggleContainer}
             /> 
           )} 
@@ -103,18 +106,23 @@ const ChannelListContent = ({isCreating, setIsCreating, setCreateType, setIsRegi
               {...previewProps} 
               type='messaging'
               setIsCreating={setIsCreating} 
-              setIsRegistering={setIsRegistering} 
+              setIsRegistering={setIsRegistering}
+              setIsVisualising={setIsVisualising} 
               setToggleContainer={setToggleContainer}
             />
           )}
         />
       </div>
-      <SideBar logout={logout}/>
+      <SideBar 
+        logout={logout}
+        setIsCreating={setIsCreating} 
+        setIsRegistering={setIsRegistering} 
+        setIsVisualising={setIsVisualising}/>
     </>
   );
 }
 
-const ChannelListContainer = ({setCreateType, setIsCreating, setIsRegistering}) =>{
+const ChannelListContainer = ({setCreateType, setIsCreating, setIsRegistering, setIsVisualising}) =>{
   const [toggleContainer, setToggleContainer] = useState(false);
 
   return(
@@ -124,6 +132,7 @@ const ChannelListContainer = ({setCreateType, setIsCreating, setIsRegistering}) 
           setIsCreating ={setIsCreating}
           setCreateType ={setCreateType}
           setIsRegistering = {setIsRegistering}
+          setIsVisualising={setIsVisualising}
         />
       </div>
     
@@ -134,6 +143,7 @@ const ChannelListContainer = ({setCreateType, setIsCreating, setIsRegistering}) 
           setIsCreating ={setIsCreating}
           setCreateType ={setCreateType}
           setIsRegistering = {setIsRegistering}
+          setIsVisualising={setIsVisualising}
           setToggleContainer={setToggleContainer}
         />
       </div>

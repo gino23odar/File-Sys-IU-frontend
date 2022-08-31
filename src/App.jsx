@@ -34,6 +34,7 @@ const App = () => {
   const [createType, setCreateType] = useState('');
   const [isCreating, setIsCreating] = useState(false);
   const [isRegistering, setIsRegistering] = useState(false);
+  const [isVisualising, setIsVisualising] = useState(false);
 
 if(!authToken) return <Auth />
 
@@ -45,6 +46,8 @@ if(!authToken) return <Auth />
           setIsCreating = {setIsRegistering}
           isRegistering = {isRegistering}
           setIsRegistering = {setIsRegistering}
+          isVisualising = {isVisualising}
+          setIsVisualising = {setIsVisualising}
           createType = {createType}
         />
         <ChannelListContainer 
@@ -52,6 +55,7 @@ if(!authToken) return <Auth />
           setIsCreating = {setIsCreating}
           setCreateType = {setCreateType}
           setIsRegistering = {setIsRegistering}
+          setIsVisualising = {setIsVisualising}
         />
       </Chat>
     </div>

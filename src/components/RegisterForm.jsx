@@ -7,7 +7,7 @@ const initialState = {
   Beschreibung: ''
 }
 
-const RegisterForm = ({setIsRegistering}) => {
+const RegisterForm = ({setIsRegistering, setIsVisualising}) => {
   const [form, setForm] = useState(initialState);
   const handleChange=(e)=>{
     setForm({...form, [e.target.name]: e.target.value});
@@ -15,7 +15,7 @@ const RegisterForm = ({setIsRegistering}) => {
   return (
     <div>
       <div className='register-channel-header__container'>RegisterForm</div>
-        <div className='register__form-container'>
+      <div className='register__form-container'>
         <div className='auth__form-container_fields'>
           <div className='auth__form-container_fields-content'>
             <form onSubmit={()=>{}}>
@@ -27,21 +27,22 @@ const RegisterForm = ({setIsRegistering}) => {
                 <label htmlFor='DateiName'>Datei Name</label>
                 <input name='DateiName' type='text' placeholder='Datei Name' onChange={handleChange} required/>
                 <label htmlFor='Seite'>Seite</label>
-                <input name='Seite' type='text' placeholder='Nr.' onChange={handleChange} required/>
+                <input name='Seite' type='number' placeholder='Nr.' onChange={handleChange} required/>
               </div>
               <div className='auth__form-container_fields-content_input'>
                 <label htmlFor='Beschreibung'>Beschreibung</label>
                 <input name='Beschreibung' type='text' placeholder='Beschreibung' onChange={handleChange} required/>
               </div>
               <div className='auth__form-container_fields-content_button'>
-              <button>Register</button>
-            </div>
-          </form>
+                <button>Einreichen</button>
+              </div>
+            </form>
+          </div>
         </div>
-      </div>
       </div>
       <div className='register-channel-footer__container'>
         <button className = 'team-channel__registration-button__return' onClick={()=>{if(setIsRegistering){setIsRegistering((prevState)=> !prevState)}}}>Anmeldungen</button>
+        <button className = 'team-channel__registration-button__return' onClick={()=>{if(setIsVisualising){setIsVisualising((prevState)=> !prevState)}}}>--&#62;List&#60;--</button>
       </div>
     </div>
   )
