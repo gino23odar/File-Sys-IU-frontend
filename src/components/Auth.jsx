@@ -31,7 +31,7 @@ const Auth = () => {
     //get data from form
     const {username, password, phoneNumber, avatarURL} = form;
     //get the URL
-    const URL = 'http://localhost:5000/auth';
+    const URL = 'http://localhost:3001/auth';
     //make the request to back-end depending on if user is login in or signing up. 
     const {data: {token, userId, hashedPassword, fullName}} = await axios.post(`${URL}/${isSignup? 'signup' : 'login'}`, {
       username, password, fullName: form.fullName, phoneNumber, avatarURL
