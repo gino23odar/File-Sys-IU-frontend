@@ -649,6 +649,11 @@ body{
   height: 6em;
 }
 
+.register-table__grid-content{
+  background-color: #ffffff;
+  color: rgb(255, 255, 255);
+}
+
 .team-channel-header__container {
   position: relative;
   height: 62px;
