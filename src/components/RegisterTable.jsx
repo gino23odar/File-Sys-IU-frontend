@@ -15,11 +15,17 @@ const RegisterTable = ({setIsVisualising}) => {
      { field: 'Status', headerName: 'Status', width: 130 },
    ];
 
+  const onRowsSelectionHandler = (ids) => {
+    const selectedRowsData = ids.map((id) => anmeldungenList.find((row) => row.id === id));
+    console.log(selectedRowsData);
+  };
+
   useEffect(() => {
     Axios.get('http://localhost:3001/api/get').then((response)=>{
       setAnmeldungenList(response.data);
     })
   }, []) 
+
 
   return (
     <div>
@@ -30,14 +36,13 @@ const RegisterTable = ({setIsVisualising}) => {
             <DataGrid
               className='register-table__grid-content'
               rows={anmeldungenList}
-              getRowId = {(row)=> row.Anmeldung_ID}
+              onSelectionModelChange={(ids)=>onRowsSelectionHandler(ids)}
               columns={columns} 
               pageSize={5}
-              rowsPerPageOptions={[6]}
+              rowsPerPageOptions={[5]}
               checkboxSelection
               />
           </div>
-          {console.log(anmeldungenList)}
         </div>
       </div>
       <button className = 'team-channel__registration-button__return' onClick={()=>{if(setIsVisualising){setIsVisualising((prevState)=> !prevState)}}}>Anmeldungen</button>

@@ -1,6 +1,5 @@
 import React, {useState} from 'react';
 import Axios from 'axios';
-import { useChatContext } from 'stream-chat-react';
 
 
 const RegisterForm = ({setIsRegistering, setIsVisualising}) => {
@@ -10,9 +9,6 @@ const RegisterForm = ({setIsRegistering, setIsVisualising}) => {
   const [seite, setSeite] = useState('');
   const [beschreibung, setBeschreibung] = useState('');
 
-  //const { client } = useChatContext(); { <field>: { $eq: <value> } }
-  //filter all users with admin accounts and check if the current acc is admin
-  
   //db post connection
   const submitRegistration = () =>{
     Axios.post("http://localhost:3001/api/insert", {
