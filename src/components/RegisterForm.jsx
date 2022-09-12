@@ -10,16 +10,18 @@ const RegisterForm = ({setIsRegistering, setIsVisualising}) => {
   const [beschreibung, setBeschreibung] = useState('');
 
   //db post connection
-  const submitRegistration = () =>{
+  const submitRegistration = (event) =>{
     Axios.post("http://localhost:3001/api/insert", {
       Student: student,
       Fach: fach,
       DateiName: dateiName,
       Seite: seite,
       Beschreibung: beschreibung
-    }).then(()=>{
-        alert('erfolgreiche Anmeldung');
-    });
+    }).then((response)=>{
+      alert(response);
+    }, (err)=>{
+      alert(err);
+    })
   };
 
   return (

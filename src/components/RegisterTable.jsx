@@ -4,6 +4,8 @@ import Axios from 'axios';
 
 const RegisterTable = ({setIsVisualising}) => {
   const [anmeldungenList, setAnmeldungenList] = useState([]);
+  const [selectedRows, setSelectedRows] = useState([]);
+
   const columns = [
      { field: 'id', headerName: 'ID', width: 70 },
      { field: 'Student', headerName: 'Student Name', width: 130 },
@@ -15,13 +17,26 @@ const RegisterTable = ({setIsVisualising}) => {
      { field: 'Status', headerName: 'Status', width: 130 },
    ];
 
+  //select and unselect rows
   const onRowsSelectionHandler = (ids) => {
     const selectedRowsData = ids.map((id) => anmeldungenList.find((row) => row.id === id));
-    console.log(selectedRowsData);
+    const selectedRowsIdArr = selectedRowsData.map((val)=>{ return val.id});
+    console.log(selectedRowsIdArr);
+    setSelectedRows(selectedRowsIdArr);
   };
 
+  const deleteRegistration = (ids) =>{
+    if(ids.length){
+      for(let i = 0; i < ids.length; i++){
+        Axios.delete(`http://localhost:3001/api/delete/${ids[i]}`)
+      }
+      alert(`Rows with ID: ${selectedRows} deleted`);
+    }
+  }
+
+  //useEffect hook to get items from db
   useEffect(() => {
-    Axios.get('http://localhost:3001/api/get').then((response)=>{
+    Axios.get("http://localhost:3001/api/get").then((response)=>{
       setAnmeldungenList(response.data);
     })
   }, []) 
@@ -45,7 +60,13 @@ const RegisterTable = ({setIsVisualising}) => {
           </div>
         </div>
       </div>
-      <button className = 'team-channel__registration-button__return' onClick={()=>{if(setIsVisualising){setIsVisualising((prevState)=> !prevState)}}}>Anmeldungen</button>
+      {console.log(`this is : ${selectedRows}`)}
+      <div className='register-channel-footer__container'>
+        <button className = 'team-channel__registration-button__return' onClick={()=>{if(setIsVisualising){setIsVisualising((prevState)=> !prevState)}}}>Anmeldungen</button>
+        <button className = 'team-channel__status-change-button' onClick={()=>{}}>Status andern</button>
+        <button className = 'team-channel__deny-button__return' onClick={()=>{}}>Ablehnen</button>
+        <button className = 'team-channel__delete-button__return' onClick={()=>{deleteRegistration(selectedRows)}}>Loschen</button>
+      </div>
     </div>
   )
 }
