@@ -5,6 +5,7 @@ import Axios from 'axios';
 const RegisterTable = ({setIsVisualising}) => {
   const [anmeldungenList, setAnmeldungenList] = useState([]);
   const [selectedRows, setSelectedRows] = useState([]);
+  const [selectedRowStat, setSelectedRowStat] = useState([]);
 
   const columns = [
      { field: 'id', headerName: 'ID', width: 70 },
@@ -21,8 +22,11 @@ const RegisterTable = ({setIsVisualising}) => {
   const onRowsSelectionHandler = (ids) => {
     const selectedRowsData = ids.map((id) => anmeldungenList.find((row) => row.id === id));
     const selectedRowsIdArr = selectedRowsData.map((val)=>{ return val.id});
+    const selectedRowsStatArr = selectedRowsData.map((val)=>{ return val.Status});
     console.log(selectedRowsIdArr);
+    console.log(selectedRowsStatArr);
     setSelectedRows(selectedRowsIdArr);
+    setSelectedRowStat(selectedRowsStatArr);
   };
 
   const deleteRegistration = (ids) =>{
@@ -30,7 +34,31 @@ const RegisterTable = ({setIsVisualising}) => {
       for(let i = 0; i < ids.length; i++){
         Axios.delete(`http://localhost:3001/api/delete/${ids[i]}`)
       }
-      alert(`Rows with ID: ${selectedRows} deleted`);
+      alert(`Zeilen mit ID: ${selectedRows} entfernt`);
+    }
+  }
+
+  const updateStatus = (ids, stat) =>{
+    if(ids.length){
+      for(let i = 0; i < ids.length; i++){
+        if(stat[i] == 'NEU'){
+          Axios.put(`http://localhost:3001/api/update/${ids[i]}`, {Status: 'IM BEARBEITUNG'})
+        } else if(stat[i] == 'IM BEARBEITUNG'){
+          Axios.put(`http://localhost:3001/api/update/${ids[i]}`, {Status: 'AKZEPTIERT'})
+        } else {
+          continue;
+        } 
+      }
+      alert(`Status bei Zeilen mit ID: ${selectedRows} sktualisiert`);
+    }
+  }
+
+  const rejectRegistration = (ids) =>{
+    if(ids.length){
+      for(let i = 0; i < ids.length; i++){
+        Axios.put(`http://localhost:3001/api/update/${ids[i]}`, {Status: 'ABGELEHNT'})
+      }
+      alert(`Zeilen mit ID: ${selectedRows} abgelehnt`);
     }
   }
 
@@ -61,10 +89,11 @@ const RegisterTable = ({setIsVisualising}) => {
         </div>
       </div>
       {console.log(`this is : ${selectedRows}`)}
+      {console.log(`this statuses : ${selectedRowStat}`)}
       <div className='register-channel-footer__container'>
         <button className = 'team-channel__registration-button__return' onClick={()=>{if(setIsVisualising){setIsVisualising((prevState)=> !prevState)}}}>Anmeldungen</button>
-        <button className = 'team-channel__status-change-button' onClick={()=>{}}>Status andern</button>
-        <button className = 'team-channel__deny-button__return' onClick={()=>{}}>Ablehnen</button>
+        <button className = 'team-channel__status-change-button' onClick={()=>{updateStatus(selectedRows, selectedRowStat)}}>Status andern</button>
+        <button className = 'team-channel__deny-button__return' onClick={()=>{rejectRegistration(selectedRows)}}>Ablehnen</button>
         <button className = 'team-channel__delete-button__return' onClick={()=>{deleteRegistration(selectedRows)}}>Loschen</button>
       </div>
     </div>
