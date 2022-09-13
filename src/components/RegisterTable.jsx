@@ -1,11 +1,17 @@
 import React, {useEffect, useState} from 'react';
 import { DataGrid } from '@mui/x-data-grid';
+import { useChatContext } from 'stream-chat-react';
 import Axios from 'axios';
 
 const RegisterTable = ({setIsVisualising}) => {
   const [anmeldungenList, setAnmeldungenList] = useState([]);
   const [selectedRows, setSelectedRows] = useState([]);
   const [selectedRowStat, setSelectedRowStat] = useState([]);
+  const {client} = useChatContext();
+
+  const adminList = [
+    "40a45ef8f30fc503feb5fd1b2ef620e6",
+  ]
 
   const columns = [
      { field: 'id', headerName: 'ID', width: 70 },
@@ -72,7 +78,63 @@ const RegisterTable = ({setIsVisualising}) => {
 
   return (
     <div>
-      <div className='register-channel-header__container'>Anmeldungen</div>
+      {adminList.includes(client.userID)? 
+        <div>
+          <div className='register-channel-header__container'>Anmeldungen</div>
+          <div className='register__form-container'>
+            <div className='auth__form-container_fields'>
+              <div style={{ height: 400, width: '100%' }}>
+                <DataGrid
+                  className='register-table__grid-content'
+                  rows={anmeldungenList}
+                  onSelectionModelChange={(ids)=>onRowsSelectionHandler(ids)}
+                  columns={columns} 
+                  pageSize={5}
+                  rowsPerPageOptions={[5]}
+                  checkboxSelection
+                  />
+              </div>
+            </div>
+          </div>
+          {console.log(`this is : ${selectedRows}`)}
+          {console.log(`this statuses : ${selectedRowStat}`)}
+          {console.log(client.userID)}
+          <div className='register-channel-footer__container'>
+            <button className = 'team-channel__registration-button__return' onClick={()=>{if(setIsVisualising){setIsVisualising((prevState)=> !prevState)}}}>Anmeldungen</button>
+            <button className = 'team-channel__status-change-button' onClick={()=>{updateStatus(selectedRows, selectedRowStat)}}>Status andern</button>
+            <button className = 'team-channel__deny-button__return' onClick={()=>{rejectRegistration(selectedRows)}}>Ablehnen</button>
+            <button className = 'team-channel__delete-button__return' onClick={()=>{deleteRegistration(selectedRows)}}>Loschen</button>
+          </div>
+        </div> : 
+        <div>
+        <div className='register-channel-header__container'>Anmeldungen</div>
+        <div className='register__form-container'>
+          <div className='auth__form-container_fields'>
+            <div style={{ height: 400, width: '100%' }}>
+              <DataGrid
+                className='register-table__grid-content'
+                rows={anmeldungenList}
+                onSelectionModelChange={(ids)=>onRowsSelectionHandler(ids)}
+                columns={columns} 
+                pageSize={5}
+                rowsPerPageOptions={[5]}
+                checkboxSelection
+                />
+            </div>
+          </div>
+        </div>
+        {console.log(`this is : ${selectedRows}`)}
+        {console.log(`this statuses : ${selectedRowStat}`)}
+        {console.log(client.userID)}
+        <div className='register-channel-footer__container'>
+          <button className = 'team-channel__registration-button__return' onClick={()=>{if(setIsVisualising){setIsVisualising((prevState)=> !prevState)}}}>Anmeldungen</button>
+        </div>
+      </div>}
+    </div>
+  )
+}
+
+{/* <div className='register-channel-header__container'>Anmeldungen</div>
       <div className='register__form-container'>
         <div className='auth__form-container_fields'>
           <div style={{ height: 400, width: '100%' }}>
@@ -90,14 +152,12 @@ const RegisterTable = ({setIsVisualising}) => {
       </div>
       {console.log(`this is : ${selectedRows}`)}
       {console.log(`this statuses : ${selectedRowStat}`)}
+      {console.log(client.userID)}
       <div className='register-channel-footer__container'>
         <button className = 'team-channel__registration-button__return' onClick={()=>{if(setIsVisualising){setIsVisualising((prevState)=> !prevState)}}}>Anmeldungen</button>
         <button className = 'team-channel__status-change-button' onClick={()=>{updateStatus(selectedRows, selectedRowStat)}}>Status andern</button>
         <button className = 'team-channel__deny-button__return' onClick={()=>{rejectRegistration(selectedRows)}}>Ablehnen</button>
         <button className = 'team-channel__delete-button__return' onClick={()=>{deleteRegistration(selectedRows)}}>Loschen</button>
-      </div>
-    </div>
-  )
-}
+      </div> */}
 
 export default RegisterTable
